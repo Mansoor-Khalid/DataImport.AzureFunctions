@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 
 var host = new HostBuilder()
@@ -18,8 +19,15 @@ var host = new HostBuilder()
 
     if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
     {
-        string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        int fCount = Directory.GetFiles(path, "*", SearchOption.AllDirectories).Length;
+        string pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var toolPath = Path.Combine(pathBase, "TransformLoadTool");
+        int fileCount = Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories).Length;
+        if(fileCount == 1)
+        {
+            var zipPath = Path.Combine(toolPath, "DataImport.TranformLoad.zip");
+            //ZipFile.CreateFromDirectory(path, zipPath);
+            ZipFile.ExtractToDirectory(zipPath, toolPath);
+        }
     }
 })
 ////#endif

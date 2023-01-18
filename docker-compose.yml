@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  DataImportAzureFunctions:
-    image: ${DOCKER_REGISTRY-}DataImportAzureFunctions
+  dataimport.azurefunctions:
+    image: ${DOCKER_REGISTRY-}dataimportazurefunctions
     build:
       context: .
       dockerfile: DataImport.AzureFunctions/Dockerfile

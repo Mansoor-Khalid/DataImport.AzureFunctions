@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  DataImportAzureFunctions:
+  dataimport.azurefunctions:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - FUNCTIONS_WORKER_RUNTIME=dotnet-isolated
