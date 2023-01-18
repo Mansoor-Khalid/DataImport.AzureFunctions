@@ -1,0 +1,10 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: azure-queue-auth
+  namespace: edgraph
+spec:
+  secretTargetRef:
+  - parameter: connection
+    name: azure-storage-queue-secret
+    key: ConnectionString

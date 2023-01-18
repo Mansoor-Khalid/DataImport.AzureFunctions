@@ -1,0 +1,20 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-storage-queue-consumer
+  namespace: edgraph
+spec:
+  scaleTargetRef:
+    name:  durable-functions-deployment                 #  <--- Property name was changed
+    envSourceContainerName: durable-functions-container
+  pollingInterval: 5   # Optional. Default: 30 seconds
+  cooldownPeriod: 30   # Optional. Default: 300 seconds
+  minReplicaCount: 0   # Optional. Default: 0
+  maxReplicaCount: 30  # Optional. Default: 100
+  triggers:
+  - type: azure-queue
+    authenticationRef:
+      name: azure-queue-auth
+    metadata:
+      queueName: js-queue-items
+      queueLength: "1"
