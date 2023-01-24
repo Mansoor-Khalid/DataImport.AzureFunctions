@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <OutputType>Exe</OutputType>
+        <ContainerDevelopmentMode>Regular</ContainerDevelopmentMode>
         <DockerFastModeProjectMountDirectory>/home/site/wwwroot</DockerFastModeProjectMountDirectory>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <PlatformTarget>AnyCPU</PlatformTarget>
