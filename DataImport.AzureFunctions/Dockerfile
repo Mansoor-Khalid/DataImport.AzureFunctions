@@ -15,9 +15,12 @@ RUN dotnet restore "DataImport.AzureFunctions/DataImport.AzureFunctions.csproj"
 COPY . .
 WORKDIR "/src/DataImport.AzureFunctions"
 RUN dotnet build "DataImport.AzureFunctions.csproj" -c Release -o /app/build
+RUN apt-get update && apt-get install -y unzip
+RUN unzip /TransformLoadTool/DataImport.TranformLoad.zip -d /app/build/TransformLoadTool
 
 FROM build AS publish
 RUN dotnet publish "DataImport.AzureFunctions.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN unzip /TransformLoadTool/DataImport.TranformLoad.zip -d /app/app/TransformLoadTool
 
 FROM base AS final
 WORKDIR /home/site/wwwroot
