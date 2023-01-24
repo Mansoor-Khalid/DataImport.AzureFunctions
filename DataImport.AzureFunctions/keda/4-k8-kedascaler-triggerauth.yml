@@ -1,10 +1,10 @@
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
-  name: azure-queue-auth
+  name: dataimport-azure-functions-trig-auth
   namespace: edgraph
 spec:
   secretTargetRef:
   - parameter: connection
-    name: azure-storage-queue-secret
+    name: dataimport-azure-functions-secret
     key: ConnectionString
