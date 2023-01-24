@@ -2,8 +2,8 @@
 k8-deploy:
 - Project Azure Func .net7
   docker:
-  docker build -t mansoorkhalid2020/durable-functions .
-  docker push mansoorkhalid2020/durable-functions
+  docker build -t mansoorkhalid2020/dataimport-azurefunctions .
+  docker push mansoorkhalid2020/dataimport-azurefunctions
 
 - kubectl apply -f k8-deploy.yaml
 -----------------------------------

@@ -16,7 +16,6 @@ COPY . .
 WORKDIR "/src/DataImport.AzureFunctions"
 RUN dotnet build "DataImport.AzureFunctions.csproj" -c Release -o /app/build
 RUN apt-get update && apt-get install -y unzip
-RUN ls
 RUN unzip /TransformLoadTool/DataImport.TranformLoad.zip -d /app/build/TransformLoadTool
 
 FROM build AS publish
