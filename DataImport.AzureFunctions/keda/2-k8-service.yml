@@ -5,10 +5,8 @@ metadata:
   namespace: edgraph
 spec:
   selector:
-    app: durable-functions-pod
-
+    app: dataimport-azure-functions-pod
   ports:
   - port: 8080
     targetPort: 80
   type: LoadBalancer
-

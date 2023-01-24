@@ -7,4 +7,4 @@ spec:
   secretTargetRef:
   - parameter: connection
     name: dataimport-azure-functions-secret
-    key: ConnectionString
+    key: StorageAccount
