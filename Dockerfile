@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/azure-functions/dotnet-isolated:4-dotnet-isolated7.0 AS base
 WORKDIR /home/site/wwwroot
 EXPOSE 80
-#RUN apt-get update && apt-get install -y unzip
 
 FROM mcr.microsoft.com/dotnet/runtime:7.0 as runtime7.0
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
@@ -19,8 +18,6 @@ RUN dotnet restore "DataImport.AzureFunctions/DataImport.AzureFunctions.csproj"
 COPY . .
 WORKDIR "/src/DataImport.AzureFunctions"
 RUN dotnet build "DataImport.AzureFunctions.csproj" -c Release -o /app/build
-
-#RUN unzip /src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TranformLoad.zip -d /app/build/TransformLoadTool
 
 FROM build AS publish
 RUN dotnet publish "DataImport.AzureFunctions.csproj" -c Release -o /app/publish /p:UseAppHost=false

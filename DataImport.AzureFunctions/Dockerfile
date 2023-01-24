@@ -9,19 +9,19 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 # Copy .NET Core 7.0 runtime from the 7.0 image
 COPY --from=runtime7.0 /usr/share/dotnet/host /usr/share/dotnet/host
 COPY --from=runtime7.0 /usr/share/dotnet/shared /usr/share/dotnet/shared
+
+RUN apt-get update && apt-get install -y unzip
+
 WORKDIR /src
 COPY ["DataImport.AzureFunctions/DataImport.AzureFunctions.csproj", "DataImport.AzureFunctions/"]
 RUN dotnet restore "DataImport.AzureFunctions/DataImport.AzureFunctions.csproj"
 COPY . .
 WORKDIR "/src/DataImport.AzureFunctions"
 RUN dotnet build "DataImport.AzureFunctions.csproj" -c Release -o /app/build
-RUN apt-get update && apt-get install -y unzip
-RUN ls
-RUN unzip /TransformLoadTool/DataImport.TranformLoad.zip -d /app/build/TransformLoadTool
 
 FROM build AS publish
 RUN dotnet publish "DataImport.AzureFunctions.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN unzip /TransformLoadTool/DataImport.TranformLoad.zip -d /app/app/TransformLoadTool
+RUN unzip /src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TranformLoad.zip -d /app/publish/TransformLoadTool
 
 FROM base AS final
 WORKDIR /home/site/wwwroot
