@@ -28,6 +28,7 @@ WORKDIR /home/site/wwwroot
 COPY --from=publish /app/publish .
 
 RUN pwd && ls
+CMD pwd && ls
 
 COPY /home/site/wwwroot/TransformLoadTool $HOME/TransformLoadTool
 RUN chmod +x $HOME/TransformLoadTool/DataImport.Server.TransformLoad.exe
