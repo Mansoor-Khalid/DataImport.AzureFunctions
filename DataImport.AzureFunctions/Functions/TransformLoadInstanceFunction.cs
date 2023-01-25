@@ -24,7 +24,7 @@ public class TransformLoadInstanceFunction
         //_logger.LogInformation($"ConnectionStrings__storageConnection: {storageConnectionTransformLoadQueue}");
         //_logger.LogInformation($"EdGraph__storageConnection__QueueName: {dataImportTransformLoadQueueName}");
 
-        Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName);
+        Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName, _logger);
         try
         {
 

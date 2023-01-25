@@ -42,7 +42,6 @@ namespace DataImport.AzureFunctions.Extensions
             _logger.LogInformation($"toolPath: {toolPath}");
             _logger.LogInformation($"toolExe: {toolExe}");
 
-
             ProcessStartInfo processStartInfo = new()
             {
                 WorkingDirectory = toolPath,
