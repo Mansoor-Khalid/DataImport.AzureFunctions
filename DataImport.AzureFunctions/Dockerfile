@@ -21,10 +21,14 @@ RUN dotnet build "DataImport.AzureFunctions.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "DataImport.AzureFunctions.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN unzip /src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TranformLoad.zip -d /app/publish/TransformLoadTool
+RUN unzip /src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TransformLoad.zip -d /app/publish/TransformLoadTool
 
 FROM base AS final
 WORKDIR /home/site/wwwroot
 COPY --from=publish /app/publish .
+
+RUN chmod +x /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad
+RUN ln -sf /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad /usr/local/bin
+
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
     AzureFunctionsJobHost__Logging__Console__IsEnabled=true

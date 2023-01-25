@@ -38,7 +38,7 @@
         <None Update="local.settings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="TransformLoadTool\DataImport.TranformLoad.zip">
+        <None Update="TransformLoadTool\DataImport.TransformLoad.zip">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
