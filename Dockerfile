@@ -21,11 +21,11 @@ RUN dotnet build "DataImport.AzureFunctions.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "DataImport.AzureFunctions.csproj" -c Release -o /app/publish /p:UseAppHost=false
-#RUN unzip /src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TranformLoad.zip -d /app/publish/TransformLoadTool
+RUN unzip src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TranformLoad.zip -d $HOME/TransformLoadTool
 
 FROM base AS final
-
-RUN unzip src/DataImport.AzureFunctions/TransformLoadTool/DataImport.TranformLoad.zip -d $HOME/TransformLoadTool
+WORKDIR /home/TransformLoadTool
+COPY --from=publish /home/TransformLoadTool .
 RUN chmod +x $HOME/TransformLoadTool/DataImport.Server.TransformLoad.exe
 RUN ln -sf $HOME/TransformLoadTool/DataImport.Server.TransformLoad.exe /usr/local/bin
 
