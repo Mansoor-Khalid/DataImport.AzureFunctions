@@ -31,8 +31,9 @@ namespace DataImport.AzureFunctions.Extensions
 
         public static Process GetTransformLoadProcess(string dataImportTransformLoadInstanceName)
         {
-
-            string? pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //string? pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string? pathBase = "/$HOME";
+            ///tmp/TransformLoadTool
             var toolPath = Path.Combine(pathBase, TransformLoadFolder);
             var toolExe = Path.Combine(toolPath, TransformLoadExe);
 

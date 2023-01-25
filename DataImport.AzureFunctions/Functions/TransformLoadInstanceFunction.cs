@@ -18,11 +18,11 @@ public class TransformLoadInstanceFunction
     [QueueTrigger("%EdGraphStorageConnectionQueueName%", Connection = "ConnectionStringsStorageConnection")] string dataImportTransformLoadInstanceName)
     {
 
-        var storageConnectionTransformLoadQueue = Environment.GetEnvironmentVariable("ConnectionStrings__storageConnection");
-        var dataImportTransformLoadQueueName = Environment.GetEnvironmentVariable("EdGraph__storageConnection__QueueName"); //"DataImport-TransformLoad-Queue"
+        //var storageConnectionTransformLoadQueue = Environment.GetEnvironmentVariable("ConnectionStrings__storageConnection");
+        //var dataImportTransformLoadQueueName = Environment.GetEnvironmentVariable("EdGraph__storageConnection__QueueName"); //"DataImport-TransformLoad-Queue"
 
-        _logger.LogInformation($"ConnectionStrings__storageConnection: {storageConnectionTransformLoadQueue}");
-        _logger.LogInformation($"EdGraph__storageConnection__QueueName: {dataImportTransformLoadQueueName}");
+        //_logger.LogInformation($"ConnectionStrings__storageConnection: {storageConnectionTransformLoadQueue}");
+        //_logger.LogInformation($"EdGraph__storageConnection__QueueName: {dataImportTransformLoadQueueName}");
 
         Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName);
 

@@ -17,4 +17,4 @@ spec:
       name: dataimport-azure-functions-trig-auth
     metadata:
       queueName: dataimport-transformload-queue
-      queueLength: "1"                                                      #  <--- Amount of load a pod can handle
+      queueLength: "10"                                                      #  <--- Amount of load a pod can handle
