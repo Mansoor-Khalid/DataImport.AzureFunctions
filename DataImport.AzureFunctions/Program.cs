@@ -17,18 +17,18 @@ var host = new HostBuilder()
         .AddEnvironmentVariables()
         .Build();
 
-    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-    {
-        string pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        var toolPath = Path.Combine(pathBase, "TransformLoadTool");
-        int fileCount = Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories).Length;
-        if(fileCount == 1)
-        {
-            var zipPath = Path.Combine(toolPath, "DataImport.TranformLoad.zip");
-            //ZipFile.CreateFromDirectory(path, zipPath);
-            ZipFile.ExtractToDirectory(zipPath, toolPath);
-        }
-    }
+    //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+    //{
+    //    string pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    //    var toolPath = Path.Combine(pathBase, "TransformLoadTool");
+    //    int fileCount = Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories).Length;
+    //    if(fileCount == 1)
+    //    {
+    //        var zipPath = Path.Combine(toolPath, "DataImport.TranformLoad.zip");
+    //        //ZipFile.CreateFromDirectory(path, zipPath);
+    //        ZipFile.ExtractToDirectory(zipPath, toolPath);
+    //    }
+    //}
 })
 ////#endif
 .ConfigureServices(services =>

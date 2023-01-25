@@ -49,10 +49,11 @@ namespace DataImport.AzureFunctions.Extensions
             };
 
 
-            var systemRootEnv = processStartInfo.EnvironmentVariables["SYSTEMROOT"];
-            //NOTE: Patch needed to control various ENV from inheriting 
-            processStartInfo.Environment.Clear();
-            processStartInfo.EnvironmentVariables["SYSTEMROOT"] = systemRootEnv;
+            //var systemRootEnv = processStartInfo.EnvironmentVariables["SYSTEMROOT"];
+            //NOTE: Patch needed to control various ENV from inheriting
+            //NOTE: Breaking in K8
+            //processStartInfo.Environment.Clear();
+            //processStartInfo.EnvironmentVariables["SYSTEMROOT"] = systemRootEnv;
 
             processStartInfo.EnvironmentVariables["DOTNET_ENVIRONMENT"] =  Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
             processStartInfo.EnvironmentVariables["ASPNETCORE_ENVIRONMENT"] = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -61,7 +62,7 @@ namespace DataImport.AzureFunctions.Extensions
             processStartInfo.EnvironmentVariables["ConnectionStrings__defaultConnection"] = DbExtensions.SubstituteDataImportInstance(dataImportTransformLoadInstanceName);
 
             //NOTE: Patch needed if ENV is inherited
-            //ProcessStartInfo.EnvironmentVariables["DOTNET_STARTUP_HOOKS"] = "";
+            //processStartInfo.EnvironmentVariables["DOTNET_STARTUP_HOOKS"] = "";
 
             var process = new Process()
             {
