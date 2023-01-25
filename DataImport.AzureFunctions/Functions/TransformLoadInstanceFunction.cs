@@ -1,6 +1,7 @@
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.DurableTask;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 
 namespace DataImport.AzureFunctions;
@@ -27,6 +28,14 @@ public class TransformLoadInstanceFunction
         
         try
         {
+            _logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction execution started at: {DateTime.Now}");
+            if(File.Exists("/home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad"))
+            {
+                //DataImport.Server.TransformLoad
+                _logger.LogError($"File.Exists true for: /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad");
+            }
+
+
             Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName, _logger);
 
             process.Start();
@@ -37,7 +46,7 @@ public class TransformLoadInstanceFunction
             _logger.LogInformation($"{output}");
             _logger.LogError($"{err}");
 
-            _logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction executed at: {DateTime.Now}");
+            _logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction execution ended at: {DateTime.Now}");
         }
         catch (Exception exception)
         {
