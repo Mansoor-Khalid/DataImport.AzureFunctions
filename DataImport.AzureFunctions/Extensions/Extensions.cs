@@ -17,7 +17,8 @@ namespace DataImport.AzureFunctions.Extensions
     public static class Extensions
     {
         public const string TransformLoadFolder = "TransformLoadTool";
-        public const string TransformLoadExe = "DataImport.Server.TransformLoad.exe";
+        //public const string TransformLoadExe = "DataImport.Server.TransformLoad.exe";
+        public const string TransformLoadExe = "DataImport.Server.TransformLoad"; //linux single exe
 
         public static QueueClient GetQueue()
         {
