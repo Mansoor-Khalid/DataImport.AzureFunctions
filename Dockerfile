@@ -27,6 +27,8 @@ FROM base AS final
 WORKDIR /home/site/wwwroot
 COPY --from=publish /app/publish .
 
+RUN pwd && ls
+
 COPY /home/site/wwwroot/TransformLoadTool $HOME/TransformLoadTool
 RUN chmod +x $HOME/TransformLoadTool/DataImport.Server.TransformLoad.exe
 RUN ln -sf $HOME/TransformLoadTool/DataImport.Server.TransformLoad.exe /usr/local/bin
