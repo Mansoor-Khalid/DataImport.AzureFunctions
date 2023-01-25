@@ -31,4 +31,4 @@ RUN chmod +x /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoa
 RUN ln -sf /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad.exe /usr/local/bin
 
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
-    AzureFunctionsJobHost__Logging__Console__IsEnabled=true__IsEnabled=true
+    AzureFunctionsJobHost__Logging__Console__IsEnabled=true
