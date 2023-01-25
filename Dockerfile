@@ -27,8 +27,8 @@ FROM base AS final
 WORKDIR /home/site/wwwroot
 COPY --from=publish /app/publish .
 
-RUN chmod +x /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad.exe
-RUN ln -sf /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad.exe /usr/local/bin
+RUN chmod +x /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad
+RUN ln -sf /home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad /usr/local/bin
 
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
     AzureFunctionsJobHost__Logging__Console__IsEnabled=true
