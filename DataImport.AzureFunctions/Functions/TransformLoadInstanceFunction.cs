@@ -27,19 +27,17 @@ public class TransformLoadInstanceFunction
         
         try
         {
-            Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName, _logger);
+            //Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName, _logger);
 
-            process.Start();
-            string output = process.StandardOutput.ReadToEnd();
-            string err = process.StandardError.ReadToEnd();
-            process.WaitForExit();
+            //process.Start();
+            //string output = process.StandardOutput.ReadToEnd();
+            //string err = process.StandardError.ReadToEnd();
+            //process.WaitForExit();
 
-            _logger.LogInformation($"{output}");
-            _logger.LogError($"{err}");
+            //_logger.LogInformation($"{output}");
+            //_logger.LogError($"{err}");
 
-
-            _logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction executed at: {DateTime.Now}");
-
+            //_logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction executed at: {DateTime.Now}");
         }
         catch (Exception exception)
         {
