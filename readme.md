@@ -19,3 +19,8 @@ kubectl apply -f 4-k8-service.yml
 https://keda.sh/docs/2.0/scalers/azure-storage-queue/
 https://keda.sh/docs/2.0/concepts/scaling-deployments/
 kubectl apply -f 5-k8-kedascaler-scaledobject.yml
+
+#clean up
+kubectl delete deploy dataimport-azure-functions-deployment
+kubectl delete ScaledObject dataimport-azure-functions-scale-object
+kubectl delete Secret dataimport-azure-functions-secret
