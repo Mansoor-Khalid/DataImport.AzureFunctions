@@ -25,17 +25,26 @@ public class TransformLoadInstanceFunction
         //_logger.LogInformation($"EdGraph__storageConnection__QueueName: {dataImportTransformLoadQueueName}");
 
         Process process = Extensions.Extensions.GetTransformLoadProcess(dataImportTransformLoadInstanceName);
+        try
+        {
 
-        process.Start();
-        string output = process.StandardOutput.ReadToEnd();
-        string err = process.StandardError.ReadToEnd();
-        process.WaitForExit();
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            string err = process.StandardError.ReadToEnd();
+            process.WaitForExit();
 
-        _logger.LogInformation($"{output}");
-        _logger.LogError($"{err}");
+            _logger.LogInformation($"{output}");
+            _logger.LogError($"{err}");
 
 
-        _logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction executed at: {DateTime.Now}");
+            _logger.LogInformation($"QueueTrigger TransformLoadInstance_QueueFunction executed at: {DateTime.Now}");
+
+        }
+        catch (Exception exception)
+        {
+
+            _logger.LogError($"{exception}");
+        }
 
     }
 

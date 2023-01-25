@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,13 +31,16 @@ namespace DataImport.AzureFunctions.Extensions
             return queueClient;
         }
 
-        public static Process GetTransformLoadProcess(string dataImportTransformLoadInstanceName)
+        public static Process GetTransformLoadProcess(string dataImportTransformLoadInstanceName, ILogger _logger)
         {
             string? pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             //string? pathBase = "/$HOME";
             ///tmp/TransformLoadTool
             var toolPath = Path.Combine(pathBase, TransformLoadFolder);
             var toolExe = Path.Combine(toolPath, TransformLoadExe);
+
+            _logger.LogInformation($"toolPath: {toolPath}");
+            _logger.LogInformation($"toolExe: {toolExe}");
 
 
             ProcessStartInfo processStartInfo = new()
