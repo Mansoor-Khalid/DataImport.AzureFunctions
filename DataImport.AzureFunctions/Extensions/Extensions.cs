@@ -17,9 +17,7 @@ namespace DataImport.AzureFunctions.Extensions
 {
     public static class Extensions
     {
-        //"/home/site/wwwroot/TransformLoadTool/DataImport.Server.TransformLoad"
         public const string TransformLoadFolder = "TransformLoadTool";
-        //public const string TransformLoadExe = "DataImport.Server.TransformLoad.exe";
         public const string TransformLoadExe = "DataImport.Server.TransformLoad"; //linux single exe
 
         public static QueueClient GetQueue()
@@ -35,13 +33,9 @@ namespace DataImport.AzureFunctions.Extensions
         public static Process GetTransformLoadProcess(string dataImportTransformLoadInstanceName, ILogger _logger)
         {
             string? pathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //string? pathBase = "/$HOME";
-            ///tmp/TransformLoadTool
+
             var toolPath = Path.Combine(pathBase, TransformLoadFolder);
             var toolExe = Path.Combine(toolPath, TransformLoadExe);
-
-            _logger.LogInformation($"toolPath: {toolPath}");
-            _logger.LogInformation($"toolExe: {toolExe}");
 
             ProcessStartInfo processStartInfo = new()
             {
@@ -54,9 +48,8 @@ namespace DataImport.AzureFunctions.Extensions
                 RedirectStandardError = true
             };
 
-
             //var systemRootEnv = processStartInfo.EnvironmentVariables["SYSTEMROOT"];
-            //NOTE: Patch needed to control various ENV from inheriting
+            //NOTE: Patch needed to control various ENV from inheriting in local machine
             //NOTE: Breaking in K8
             //processStartInfo.Environment.Clear();
             //processStartInfo.EnvironmentVariables["SYSTEMROOT"] = systemRootEnv;
@@ -66,9 +59,6 @@ namespace DataImport.AzureFunctions.Extensions
             processStartInfo.EnvironmentVariables["AppSettings__DatabaseEngine"] = Environment.GetEnvironmentVariable("AppSettings__DatabaseEngine");
             processStartInfo.EnvironmentVariables["ConnectionStrings__storageConnection"] = Environment.GetEnvironmentVariable("ConnectionStrings__storageConnection");// "UseDevelopmentStorage=true";
             processStartInfo.EnvironmentVariables["ConnectionStrings__defaultConnection"] = DbExtensions.SubstituteDataImportInstance(dataImportTransformLoadInstanceName);
-
-            //NOTE: Patch needed if ENV is inherited
-            //processStartInfo.EnvironmentVariables["DOTNET_STARTUP_HOOKS"] = "";
 
             var process = new Process()
             {
