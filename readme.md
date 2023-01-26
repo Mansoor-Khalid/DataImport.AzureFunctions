@@ -1,3 +1,10 @@
+#keda install on k8
+helm repo add kedacore https://kedacore.github.io/charts
+helm repo update
+kubectl create namespace keda
+helm install keda kedacore/keda --namespace keda
+
+
 #k8-deploy steps:
 dotnet build Project Azure Func .net7
 -----------------------------------
