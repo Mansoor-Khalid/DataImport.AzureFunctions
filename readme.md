@@ -1,11 +1,22 @@
+#keda install on k8
+helm repo add kedacore https://kedacore.github.io/charts
+helm repo update
+kubectl create namespace keda
+helm install keda kedacore/keda --namespace keda
+
+
 #k8-deploy steps:
 dotnet build Project Azure Func .net7
 -----------------------------------
 #docker:
+#in repo main directory
 docker build -t mansoorkhalid2020/dataimport-azurefunctions .
 docker push mansoorkhalid2020/dataimport-azurefunctions
 -----------------------------------
 #k8-Keda:
+#relative to repo main directory run:
+cd DataImport.AzureFunctions\keda
+# then:
 
 https://keda.sh/docs/2.0/concepts/authentication/
 https://keda.sh/docs/2.0/authentication-providers/secret/
@@ -21,6 +32,8 @@ https://keda.sh/docs/2.0/concepts/scaling-deployments/
 kubectl apply -f 5-k8-kedascaler-scaledobject.yml
 
 #clean up
-kubectl delete deploy dataimport-azure-functions-deployment
 kubectl delete ScaledObject dataimport-azure-functions-scale-object
+kubectl delete Service dataimport-azure-functions-service
+kubectl delete deploy dataimport-azure-functions-deployment
+kubectl delete TriggerAuthentication dataimport-azure-functions-trig-auth
 kubectl delete Secret dataimport-azure-functions-secret
