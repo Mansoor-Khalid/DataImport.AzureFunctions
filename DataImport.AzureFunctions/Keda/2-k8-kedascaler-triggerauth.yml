@@ -6,5 +6,5 @@ metadata:
 spec:
   secretTargetRef:
   - parameter: connection
-    name: dataimport-azure-functions-secret
-    key: StorageAccount
+    name: egakscooldevscus-connection-string
+    key: connectionstring

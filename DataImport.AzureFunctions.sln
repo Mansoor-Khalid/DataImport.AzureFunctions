@@ -8,7 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F241B472-4D18-47DB-B66C-DFC6B95E3262}"
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
-		readme.md = readme.md
+		azurefunctions.readme.md = azurefunctions.readme.md
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6BA6DC75-6F7B-4EC8-BE2E-5E0D0A8EEBA7}"
