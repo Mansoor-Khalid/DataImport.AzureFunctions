@@ -73,6 +73,10 @@ spec:
                 value: dataimport-transformload-queue
               - name:  EdGraph__AzureSQL__ElasticPoolName
                 value: eg-mssql-elastic-01-dev-scus
+        imagePullSecrets:
+          - name: eg-kube-01-dev-scus
+        nodeSelector:
+          agentpool: kedajobs
 
   pollingInterval: 30
   successfulJobsHistoryLimit: 5
