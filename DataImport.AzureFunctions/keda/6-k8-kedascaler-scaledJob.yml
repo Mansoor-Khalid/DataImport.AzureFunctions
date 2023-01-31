@@ -1,7 +1,9 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledJob
 metadata:
-  name: hello-keda-scaledobject
+  name: edfi-dataimport-web-azure-functions
+  labels:
+    app: edfi-dataimport-web-azure-functions
 spec:
   jobTargetRef:
     parallelism: 10
@@ -12,74 +14,75 @@ spec:
     template:
       metadata:
         labels:
-          app: hello-keda
-        name: hello-keda
+          app: edfi-dataimport-web-azure-functions
+        name: edfi-dataimport-web-azure-functions
       spec:
         containers:
           - name: edfi-dataimport-web-azure-functions
             image: ewcontainerscus.azurecr.io/edfi/dataimport-web/azure-functions:bullseye-slim-v1.0.0-azurefunctions.20230131.1
             imagePullPolicy: Always
             env:
-              Name:   DOTNET_ENVIRONMENT
-              Value:  Development
-              Name:   ASPNETCORE_ENVIRONMENT
-              Value:  Development
-              Name:   AZURE_FUNCTIONS_ENVIRONMENT
-              Value:  Development
-              Name:   FUNCTIONS_WORKER_RUNTIME
-              Value:  dotnet-isolated
-              Name:   WEBSITE_HOSTNAME
-              Value:  localhost:7071
-              Name:   AzureWebJobs.TransformLoad_TimerFunction.Disabled
-              Value:  true
-              Name:   AzureWebJobsStorage
-              Value From:
-                Secret Key Ref:
-                  Key:   connectionstring
-                  Name:  egakscooldevscus-connection-string
-              Name:      SQLSERVER_DATASOURCE
-              Value:     tcp:eg-mssql-server-01-dev-scus.database.windows.net,1433
-              Name:      SQLSERVER_USER
-              Value From:
-                Secret Key Ref:
-                  Key:   username
-                  Name:  eg-mssql-server-01-dev-scus-admin-credentials
-              Name:      SQLSERVER_PASSWORD
-              Value From:
-                Secret Key Ref:
-                  Key:   password
-                  Name:  eg-mssql-server-01-dev-scus-admin-credentials
-              Name:      ConnectionStringsStorageConnection
-              Value From:
-                Secret Key Ref:
-                  Key:   connectionstring
-                  Name:  egakscooldevscus-connection-string
-              Name:      EdGraphStorageConnectionQueueName
-              Value:     dataimport-transformload-queue
-              Name:      EdGraphTransformLoadTimerTrigger
-              Value:     0 */5 * * * *
-              Name:      ConnectionStrings__storageConnection
-              Value From:
-                Secret Key Ref:
-                  Key:          connectionstring
-                  Name:         egakscooldevscus-connection-string
-              Name:             ConnectionStrings__defaultConnection
-              Value:            Server=$(SQLSERVER_DATASOURCE);Database=EdFi_{0};User Id=$(SQLSERVER_USER);Password=$(SQLSERVER_PASSWORD);Integrated Security=false;Encrypt=True; Persist Security Info=True;Connection Timeout=3600;Command Timeout=3600;TrustServerCertificate=True;
-              Name:             AppSettings__DatabaseEngine
-              Value:            SqlServer
-              Name:             EdGraph__storageConnection__QueueName
-              Value:            dataimport-transformload-queue
-              Name:             EdGraph__AzureSQL__ElasticPoolName
-              Value:            eg-mssql-elastic-01-dev-scus
+              - name: DOTNET_ENVIRONMENT
+                value: Development
+              - name: ASPNETCORE_ENVIRONMENT
+                value: Development
+              - name: AZURE_FUNCTIONS_ENVIRONMENT
+                value: Development
+              - name: FUNCTIONS_WORKER_RUNTIME
+                value: dotnet-isolated
+              - name: WEBSITE_HOSTNAME
+                value: localhost:7071
+              - name: AzureWebJobs.TransformLoad_TimerFunction.Disabled
+                value: true
+              - name: AzureWebJobsStorage
+                valueFrom:
+                  secretKeyRef:
+                    key: connectionstring
+                    name: egakscooldevscus-connection-string
+              - name: SQLSERVER_DATASOURCE
+                value: tcp:eg-mssql-server-01-dev-scus.database.windows.net,1433
+              - name: SQLSERVER_USER
+                valueFrom:
+                  secretKeyRef:
+                    key: username
+                    name: eg-mssql-server-01-dev-scus-admin-credentials
+              - name: SQLSERVER_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: eg-mssql-server-01-dev-scus-admin-credentials
+              - name: ConnectionStringsStorageConnection
+                valueFrom:
+                  secretKeyRef:
+                    key: connectionstring
+                    name: egakscooldevscus-connection-string
+              - name: EdGraphStorageConnectionQueueName
+                value: dataimport-transformload-queue
+              - name: EdGraphTransformLoadTimerTrigger
+                value: 0 */5 * * * *
+              - name: ConnectionStrings__storageConnection
+                valueFrom:
+                  secretKeyRef:
+                    key:  connectionstring
+                    name: egakscooldevscus-connection-string
+              - name:  ConnectionStrings__defaultConnection
+                value: Server=$(SQLSERVER_DATASOURCE);Database=EdFi_{0};User Id=$(SQLSERVER_USER);Password=$(SQLSERVER_PASSWORD);Integrated Security=false;Encrypt=True; Persist Security Info=True;Connection Timeout=3600;Command Timeout=3600;TrustServerCertificate=True;
+              - name:  AppSettings__DatabaseEngine
+                value: SqlServer
+              - name:  EdGraph__storageConnection__QueueName
+                value: dataimport-transformload-queue
+              - name:  EdGraph__AzureSQL__ElasticPoolName
+                value: eg-mssql-elastic-01-dev-scus
 
   pollingInterval: 30
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 5
-  maxReplicaCount: 100
+  minReplicaCount: 0 # Optional. Default: 0
+  maxReplicaCount: 10
   triggers:
   - type: azure-queue
     authenticationRef:
-      name: dataimport-azure-functions-trig-auth
+      name: edfi-dataimport-web-azure-functions
     metadata:
       queueName: dataimport-transformload-queue
-      queueLength: "10"                                                      #  <--- Amount of load a pod can handle
+      queueLength: "1"                                                      #  <--- Amount of load a pod can handle
