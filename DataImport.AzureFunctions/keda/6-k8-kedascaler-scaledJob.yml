@@ -33,7 +33,7 @@ spec:
               - name: WEBSITE_HOSTNAME
                 value: localhost:7071
               - name: AzureWebJobs.TransformLoad_TimerFunction.Disabled
-                value: true
+                value: "true"
               - name: AzureWebJobsStorage
                 valueFrom:
                   secretKeyRef:
