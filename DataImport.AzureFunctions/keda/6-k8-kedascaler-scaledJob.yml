@@ -10,7 +10,7 @@ spec:
     #completions: 1
     #activeDeadlineSeconds: 14400
     #backoffLimit: 6
-    ttlSecondsAfterFinished: 100
+    #ttlSecondsAfterFinished: 100
     template:
       metadata:
         labels:
@@ -79,10 +79,14 @@ spec:
           agentpool: kedajobs
 
   pollingInterval: 30
-  successfulJobsHistoryLimit: 5
-  failedJobsHistoryLimit: 5
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 2
   minReplicaCount: 0 # Optional. Default: 0
   maxReplicaCount: 10
+  calingStrategy:
+    strategy: "custom"                        # Optional. Default: default. Which Scaling Strategy to use.
+    customScalingQueueLengthDeduction: 1      # Optional. A parameter to optimize custom ScalingStrategy.
+    customScalingRunningJobPercentage: "0.5"  # Optional. A parameter to optimize custom ScalingStrategy.
   triggers:
   - type: azure-queue
     authenticationRef:
